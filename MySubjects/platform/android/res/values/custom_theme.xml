@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--Material design primary colors-->
+<style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+    <item name="android:navigationBarColor">@color/primary_dark</item>
+    <item name="actionBarTheme">@style/AppBaseTheme.Toolbar</item>
+</style>
 
-  <style name="materialTheme" parent="android:Theme.Material.Light">
-  <!--   your app branding color for the app bar -->
-    <item name="colorPrimary">#0000FF</item>
-    <!--   darker variant for the status bar and contextual app bars -->
-    <item name="colorPrimaryDark">#FF0000</item>
-    <!--   theme UI controls like checkboxes and text fields -->
-    <item name="colorAccent">#00FF00</item>
-  </style>
+<!--Action bar-->
+<style name="AppBaseTheme.Toolbar" parent="Widget.AppCompat.ActionBar.Solid">
+    <item name="android:textColorPrimary">@color/action_bar_text</item>
+    <item name="colorControlNormal">@color/action_bar_text</item>
+</style>
 </resources>
