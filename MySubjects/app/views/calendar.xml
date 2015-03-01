@@ -1,0 +1,8 @@
+<Alloy>
+  <Window id="explore">
+        <ActionBar displayHomeAsUp="true" onHomeIconItemSelected="closewin" platform="android"/>
+
+      <Label text="Explore View" />
+      <Button bottom="100" title="Toggle Drawer" onClick="toggleMenu" />
+  </Window>
+</Alloy>

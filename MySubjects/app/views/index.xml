@@ -1,5 +1,20 @@
 <Alloy>
-	<Window class="container">
-		<Label id="label" onClick="doClick">Hello, World</Label>
-	</Window>
+	<Widget id="navDrawer" src="com.jpntex.navdrawer">
+		<View id="menu" role="menu">
+		    <TableView id="menuTable">
+		    	<TableViewRow onClick="openSubject">
+		    		<View class="borderTopLine" />
+					<Label class="menuItem" text="Explore" />
+	                <View class="borderBottomLine" />
+		    	</TableViewRow>
+		    	<TableViewRow onClick="openCalendar">
+		    		<View class="borderTopLine" />
+					<Label class="menuItem" text="Shop" />
+	                <View class="borderBottomLine" />
+		    	</TableViewRow>
+		    </TableView>
+		</View>
+
+		<View role="main"></View>
+	</Widget>
 </Alloy>
