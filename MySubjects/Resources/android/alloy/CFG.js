@@ -1,1 +1,1 @@
-module.exports={"dependencies":{"com.jpntex.navdrawer":"0.3"}};
+module.exports={"dependencies":{}};

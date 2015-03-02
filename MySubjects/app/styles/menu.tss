@@ -1,0 +1,13 @@
+"TableViewRow" : {
+  color: '#ddd',
+  font: {
+    fontFamily: "Roboto",
+    fontSize: 24,
+    fontWeigth: 'bold'
+  }
+},
+
+"#cover": {
+height: 200,
+width: "fill"
+}

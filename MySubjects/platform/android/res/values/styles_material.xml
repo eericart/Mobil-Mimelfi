@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Material" parent="@style/Theme.AppCompat">
+    <style name="Theme.Material" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_material</item>
         <item name="popupMenuStyle">@style/PopupMenu.Material</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Material</item>
@@ -30,10 +30,12 @@
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_material</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Material</item>
 
-        
+                <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.Material.Widget</item>
+
     </style>
 
-    <style name="ActionBar.Solid.Material" parent="@style/Widget.AppCompat.ActionBar.Solid">
+    <style name="ActionBar.Solid.Material" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="background">@drawable/ab_solid_material</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_material</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_material</item>

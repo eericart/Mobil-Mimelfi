@@ -53,6 +53,7 @@
     </mobileweb>
     <modules>
     <module platform="android" version="1.6.1">com.alcoapps.actionbarextras</module>
+    <module platform="android" version="1.2.2">com.tripvi.drawerlayout</module>
   </modules>
     <deployment-targets>
         <target device="blackberry">false</target>

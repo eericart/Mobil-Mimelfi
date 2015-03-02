@@ -8,19 +8,14 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
-    function __alloyId1() {
-        $.__views.explore.removeEventListener("open", __alloyId1);
-        if ($.__views.explore.activity) {
-            $.__views.explore.activity.actionBar.displayHomeAsUp = true;
-            $.__views.explore.activity.actionBar.onHomeIconItemSelected = closewin;
-        } else {
-            Ti.API.warn("You attempted to access an Activity on a lightweight Window or other");
-            Ti.API.warn("UI component which does not have an Android activity. Android Activities");
-            Ti.API.warn("are valid with only windows in TabGroups or heavyweight Windows.");
-        }
+    function onCreateOptionsMenu(e) {
+        e.actionBar && (e.actionBar.title = "Calendar");
     }
-    function toggleMenu() {
-        Alloy.Globals.navDrawer.toggleMenu();
+    function destroy() {
+        $.off();
+    }
+    function init() {
+        $.on("createOptionsMenu", onCreateOptionsMenu);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "calendar";
@@ -37,34 +32,25 @@ function Controller() {
     }
     var $ = this;
     var exports = {};
-    var __defers = {};
-    $.__views.explore = Ti.UI.createWindow({
-        navBarHidden: true,
-        backgroundColor: "#ecf0f1",
-        id: "explore"
+    $.__views.calendar = Ti.UI.createView({
+        id: "calendar"
     });
-    $.__views.explore && $.addTopLevelView($.__views.explore);
-    $.__views.explore.addEventListener("open", __alloyId1);
-    $.__views.__alloyId2 = Ti.UI.createLabel({
+    $.__views.calendar && $.addTopLevelView($.__views.calendar);
+    $.__views.__alloyId1 = Ti.UI.createLabel({
         color: "#3498db",
         font: {
             fontSize: "32sp",
             fontWeight: "bold"
         },
-        text: "Explore View",
-        id: "__alloyId2"
+        text: "About view",
+        id: "__alloyId1"
     });
-    $.__views.explore.add($.__views.__alloyId2);
-    $.__views.__alloyId3 = Ti.UI.createButton({
-        bottom: "100",
-        title: "Toggle Drawer",
-        id: "__alloyId3"
-    });
-    $.__views.explore.add($.__views.__alloyId3);
-    toggleMenu ? $.__views.__alloyId3.addEventListener("click", toggleMenu) : __defers["$.__views.__alloyId3!click!toggleMenu"] = true;
+    $.__views.calendar.add($.__views.__alloyId1);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    __defers["$.__views.__alloyId3!click!toggleMenu"] && $.__views.__alloyId3.addEventListener("click", toggleMenu);
+    arguments[0] || {};
+    exports.destroy = destroy;
+    exports.init = init;
     _.extend($, exports);
 }
 
