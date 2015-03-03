@@ -1,5 +1,0 @@
-<Alloy>
-	<Window onOpen="onOpen">
-	  <Label text="New Window" />
-	</Window>
-</Alloy>

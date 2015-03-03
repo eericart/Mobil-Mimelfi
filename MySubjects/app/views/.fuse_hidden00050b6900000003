@@ -1,5 +1,0 @@
-<Alloy>
-    <Window platform="android" onOpen="onOpen">
-        <!-- add header bar here -->
-    </Window>
-</Alloy>
