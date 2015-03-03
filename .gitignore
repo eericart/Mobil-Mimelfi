@@ -60,11 +60,7 @@ proguard/
 gen-external-apklibs
 
 
-### AppceleratorTitanium ###
-# Build folder and log file
-build/
-build.log
-
+#!! ERROR: phonegap is undefined. Use list command to see defined gitignore types !!#
 
 ### OSX ###
 .DS_Store
