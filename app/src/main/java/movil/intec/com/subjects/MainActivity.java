@@ -1,6 +1,7 @@
 package movil.intec.com.subjects;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -142,7 +143,10 @@ public class MainActivity extends ActionBarActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Log.e("FAB", "Add Click ");
+                Log.e("FAB", "Add Click ");
+                Intent i = new Intent(MainActivity.this, AddSubjectsActivity.class);
+                startActivity(i);
+
             }
         });
     }
