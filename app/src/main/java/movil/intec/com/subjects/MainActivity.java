@@ -2,16 +2,15 @@ package movil.intec.com.subjects;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.shamanland.fab.FloatingActionButton;
 import com.shamanland.fab.ShowHideOnScroll;
@@ -22,11 +21,7 @@ import movil.intec.com.subjects.helper.DatabaseHelper;
 import movil.intec.com.subjects.model.Subject;
 
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerCallbacks {
-
-
-
+public class MainActivity extends ActionBarActivity {
     //private SQLiteDatabase sql;
     private DatabaseHelper db;
 
@@ -39,7 +34,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_activity2);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mToolbar);
 
@@ -74,38 +69,15 @@ public class MainActivity extends ActionBarActivity
         Log.e("S Count", "S count: " + db.getSubjectsCount());
 
         show();
-
-
-    }
-
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        Toast.makeText(this, "Menu item selected -> " + position, Toast.LENGTH_SHORT).show();
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        if (mNavigationDrawerFragment.isDrawerOpen())
-            mNavigationDrawerFragment.closeDrawer();
-        else
-            super.onBackPressed();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            return true;
-        }
-        return super.onCreateOptionsMenu(menu);
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main_activity2, menu);
+        return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -121,6 +93,7 @@ public class MainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
     private void show(){
         ArrayList<Subject> s=db.getAllSubjects();
@@ -144,7 +117,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View v) {
                 Log.e("FAB", "Add Click ");
-                Intent i = new Intent(MainActivity.this, AddSubjectsActivity.class);
+                Intent i = new Intent(MainActivity5.this, AddSubjectsActivity.class);
                 startActivity(i);
 
             }

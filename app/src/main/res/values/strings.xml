@@ -23,6 +23,7 @@
     <string name="strLimpiar">Limpiar</string>
     <string name="strAñadir">Añadir</string>
     <string name="strDias">Small Text</string>
+    <string name="quit">Salir</string>
 
 
 </resources>
