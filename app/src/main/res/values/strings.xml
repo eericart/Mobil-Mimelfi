@@ -24,6 +24,9 @@
     <string name="strAñadir">Añadir</string>
     <string name="strDias">Small Text</string>
     <string name="quit">Salir</string>
+    <string name="calendar">Calendario</string>
+    <string name="showCalendar">Mostrar Calendario</string>
+    <string name="addSubject">Agregar Materias</string>
 
 
 </resources>

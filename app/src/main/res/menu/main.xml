@@ -4,6 +4,11 @@
     tools:context="movil.intec.com.subjects.MainActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/menuShowCalendar"
+        android:title="@string/showCalendar" />
+    <item android:id="@+id/menuSubject"
+        android:title="@string/addSubject" />
     <item android:id="@+id/quit"
         android:title="@string/quit" />
+
 </menu>
