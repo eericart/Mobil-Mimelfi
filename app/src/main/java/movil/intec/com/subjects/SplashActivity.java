@@ -26,10 +26,5 @@ public class SplashActivity extends ActionBarActivity {
 
             }
         }, myTimer);
-}
-
-
-
-
-
     }
+}
