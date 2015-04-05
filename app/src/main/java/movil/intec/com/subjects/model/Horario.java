@@ -5,16 +5,21 @@ package movil.intec.com.subjects.model;
  */
 public class Horario {
 
-    int id;
-    String start;
-    String end;
-    String day;
+    private int id;
+    private String start;
+    private String end;
+    private String day;
+    private Subject subject;
+
 
 
     public Horario(String start, String end, String day) {
         this.start = start;
         this.end = end;
         this.day = day;
+    }
+
+    public Horario(){
     }
 
     public void setId(int id) {
@@ -32,6 +37,15 @@ public class Horario {
     public void setEnd(String end) {
         this.end = end;
     }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
 
     public String getStart() {
         return start;

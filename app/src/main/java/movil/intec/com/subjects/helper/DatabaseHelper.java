@@ -31,7 +31,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Names
     private static final String TABLE_SUBJECTS = "subjects";
     private static final String TABLE_HORARIO = "Horario";
-    private static final String TABLE_SUBJECTS_HORARIO = "subjects_horario";
 
     // Common column names
     private static final String COL_ID = "id";
@@ -46,30 +45,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_START = "start";
     private static final String COL_END = "end";
     private static final String COL_DAY = "day";
-
-
-    // NOTE_TAGS Table - column names
     private static final String COL_SUBJECTS_ID = "subjects_id";
-    private static final String COL_HORARIO_ID = "horario_id";
+
+
 
     // Table Create Statements
     // Subjects table create statement
     private static final String CREATE_TABLE_S = "CREATE TABLE "
-            + TABLE_SUBJECTS + "(" + COL_ID + " INTEGER PRIMARY KEY," + COL_NAME
-            + " TEXT," + COL_PROFESOR + " TEXT," + COL_CREATED_AT
+            + TABLE_SUBJECTS + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COL_NAME
+            + " TEXT NOT NULL,," + COL_PROFESOR + " TEXT NOT NULL," + COL_CREATED_AT
             + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
     // Horario table create statement
     private static final String CREATE_TABLE_H = "CREATE TABLE " + TABLE_HORARIO
-            + "(" + COL_ID + " INTEGER PRIMARY KEY," + COL_START + " TEXT,"
-            + COL_END + " TEXT," + COL_DAY + " TEXT,"
+            + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COL_START + " TEXT NOT NULL,"
+            + COL_END + " TEXT NOT NULL," + COL_DAY + " TEXT NOT NULL," + COL_SUBJECTS_ID + " INTEGER,"
             + COL_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP" + ")";
 
-    // Subjects_horarios table create statement
-    private static final String CREATE_TABLE_S_H = "CREATE TABLE "
-            + TABLE_SUBJECTS_HORARIO + "(" + COL_ID + " INTEGER PRIMARY KEY,"
-            + COL_HORARIO_ID + " INTEGER," + COL_SUBJECTS_ID + " INTEGER,"
-            + COL_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
     private final String triggerName = "fk_check_materia_id";
 
@@ -104,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // creating required tables
         db.execSQL(CREATE_TABLE_S);
         db.execSQL(CREATE_TABLE_H);
-        db.execSQL(CREATE_TABLE_S_H);
+        createTrigger(db,this.triggerName,this.TABLE_SUBJECTS,this.TABLE_HORARIO,this.COL_ID,this.COL_ID);
     }
 
     @Override
@@ -112,8 +104,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // on upgrade drop older tables
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUBJECTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HORARIO);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUBJECTS_HORARIO);
-        createTrigger(db,this.triggerName,this.TABLE_SUBJECTS,this.TABLE_SUBJECTS_HORARIO,this.COL_ID,this.COL_ID);
         // create new tables
         onCreate(db);
     }
@@ -138,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Adding new
-    public long createSubject(Subject s, int[] horarios_ids) {
+    public long createSubject(Subject s, int[] h_ids) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -148,10 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // insert row
         long s_id = db.insert(TABLE_SUBJECTS, null, values);
 
-        // assigning tags to todo
-        for (long h_id : horarios_ids) {
-            createSubToHorario(s_id, h_id);
-        }
+       addSubToHorario((int) s_id, h_ids);
 
         return s_id;
     }
@@ -170,17 +157,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return h_id;
     }
 
-
-    public long createSubToHorario(long todo_id, long tag_id) {
+    public void addSubToHorario(int s_id,int[] h_ids) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COL_SUBJECTS_ID, todo_id);
-        values.put(COL_HORARIO_ID, tag_id);
+        values.put(COL_SUBJECTS_ID,s_id);
 
-        long id = db.insert(TABLE_SUBJECTS_HORARIO, null, values);
-
-        return id;
+        db.update(TABLE_HORARIO,values,COL_ID + " =?", new String[] { String.valueOf(h_ids) });
     }
 
     public ArrayList<Subject> getAllSubjects() {
@@ -195,11 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
-                Subject s = new Subject();
-                s.setId(c.getInt((c.getColumnIndex(COL_ID))));
-                s.setName((c.getString(c.getColumnIndex(COL_NAME))));
-                s.setProfesor((c.getString(c.getColumnIndex(COL_NAME))));
-                s.setCreatedAt(c.getString(c.getColumnIndex(COL_CREATED_AT)));
+                Subject s = this.getSubject(c.getInt(c.getColumnIndex(COL_ID)));
                 subjects.add(s);
             } while (c.moveToNext());
         }
@@ -215,10 +194,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = cursor.getCount();
         cursor.close();
 
-        // return count
         return count;
     }
-    public Subject getSubject(long s_id) {
+
+    public Subject getSubject(int s_id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS + " WHERE "
@@ -236,8 +215,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         s.setName((c.getString(c.getColumnIndex(COL_NAME))));
         s.setProfesor((c.getString(c.getColumnIndex(COL_NAME))));
         s.setCreatedAt(c.getString(c.getColumnIndex(COL_CREATED_AT)));
-
+        s.setHorarios(this.getSubjectsHorarios((int) s.getId()));
         return s;
+    }
+
+    private ArrayList<Horario> getSubjectsHorarios(int s_id){
+        ArrayList<Horario> horarios = new ArrayList<Horario>();
+        String selectQuery = "SELECT * FROM " + TABLE_HORARIO + "INNER JOIN "+TABLE_SUBJECTS
+                + "ON "+ COL_SUBJECTS_ID +" = "+ s_id;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Horario h = this.getHorario(c.getInt(c.getColumnIndex(COL_ID)));
+                horarios.add(h);
+            } while (c.moveToNext());
+        }
+        return horarios;
+    }
+
+    public Horario getHorario(int h_id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_SUBJECTS + " WHERE "
+                + COL_ID + " = " + h_id;
+
+        Log.e(LOG, selectQuery);
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        Horario h = new Horario();
+        h.setId(c.getInt((c.getColumnIndex(COL_ID))));
+        h.setStart((c.getString(c.getColumnIndex(COL_START))));
+        h.setEnd((c.getString(c.getColumnIndex(COL_END))));
+        h.setDay(c.getString(c.getColumnIndex(COL_DAY)));
+        h.setSubject(this.getSubject(c.getInt((c.getColumnIndex(COL_CREATED_AT)))));
+        return h;
+    }
+
+    public ArrayList<Subject> getAllSubjectbyDay(String day) {
+        ArrayList<Subject> subjects = new ArrayList<Subject>();
+        String selectQuery = "SELECT * FROM " + TABLE_HORARIO + "WHERE day="+day;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Subject s = this.getSubject(c.getInt(c.getColumnIndex(COL_SUBJECTS_ID)));
+                subjects.add(s);
+            } while (c.moveToNext());
+        }
+
+        return subjects;
     }
 
     public void closeDB() {

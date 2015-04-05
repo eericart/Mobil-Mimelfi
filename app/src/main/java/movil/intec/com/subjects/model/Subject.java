@@ -1,18 +1,20 @@
 package movil.intec.com.subjects.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ernest on 04/04/15.
  */
 
 public class Subject {
-    int id;
-    String name;
-    String profesor;
-    String created_at;
-    List<Horario> horario = new ArrayList<Horario>();
+
+    private int id;
+    private String name;
+    private String profesor;
+    private String created_at;
+    private ArrayList<Horario> horarios;
+
+
 
     // constructors
     public Subject() {
@@ -47,12 +49,8 @@ public class Subject {
         this.profesor = profesor;
     }
 
-    public void setHorario(Horario horario) {
-        this.horario.add(horario);
-    }
-
-    public void setHorario(ArrayList<Horario> horario) {
-        this.horario = horario;
+    public void setHorarios(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
     }
 
     // getters
@@ -67,8 +65,9 @@ public class Subject {
     public String getProfesor() {
         return this.profesor;
     }
-    public List<Horario> getHorario() {
-        return horario;
+
+    public ArrayList<Horario> getHorarios() {
+        return horarios;
     }
 
 }
