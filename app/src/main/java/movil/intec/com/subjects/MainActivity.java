@@ -93,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
         ListView list = (ListView) findViewById(R.id.listView);
         CustomAdapter cursorAdapter = new CustomAdapter(getApplicationContext(),s);
 
-        final ActionButton fab = (ActionButton) findViewById(R.id.action_button);;
+        final ActionButton fab = (ActionButton) findViewById(R.id.action_button);
 
         if (s.isEmpty()){
             showMessage("Error", "No records found");

@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Subjects table create statement
     private static final String CREATE_TABLE_S = "CREATE TABLE "
             + TABLE_SUBJECTS + "(" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COL_NAME
-            + " TEXT NOT NULL,," + COL_PROFESOR + " TEXT NOT NULL," + COL_CREATED_AT
+            + " TEXT NOT NULL," + COL_PROFESOR + " TEXT NOT NULL," + COL_CREATED_AT
             + " DATETIME DEFAULT CURRENT_TIMESTAMP)";
 
     // Horario table create statement
