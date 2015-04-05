@@ -96,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // creating required tables
         db.execSQL(CREATE_TABLE_S);
         db.execSQL(CREATE_TABLE_H);
-        createTrigger(db,this.triggerName,this.TABLE_SUBJECTS,this.TABLE_HORARIO,this.COL_ID,this.COL_ID);
+        //createTrigger(db,this.triggerName,this.TABLE_SUBJECTS,this.TABLE_HORARIO,this.COL_ID,this.COL_ID);
     }
 
     @Override
@@ -221,8 +221,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private ArrayList<Horario> getSubjectsHorarios(int s_id){
         ArrayList<Horario> horarios = new ArrayList<Horario>();
-        String selectQuery = "SELECT * FROM " + TABLE_HORARIO + "INNER JOIN "+TABLE_SUBJECTS
-                + "ON "+ COL_SUBJECTS_ID +" = "+ s_id;
+        String selectQuery = "SELECT * FROM " + TABLE_HORARIO + " INNER JOIN "+TABLE_SUBJECTS
+                +  " ON "+ COL_SUBJECTS_ID +"="+ s_id;
 
         Log.e(LOG, selectQuery);
 
