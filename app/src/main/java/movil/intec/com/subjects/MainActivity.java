@@ -38,7 +38,14 @@ public class MainActivity extends ActionBarActivity {
 
         db = DatabaseHelper.getInstance(getApplicationContext());
 
+        ArrayList<Subject> array = db.getAllSubjects();
+
+        if (array.isEmpty()){
+            Subject sub = new Subject("Introduccion a la vida", "Marcos Gimian");
+            db.createSubject(sub,new int[] {});
+        }
         show();
+
     }
 
 
