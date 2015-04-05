@@ -38,28 +38,6 @@ public class MainActivity extends ActionBarActivity {
 
         db = DatabaseHelper.getInstance(getApplicationContext());
 
-        Subject s1 = new Subject("Espanol", "Liguia");
-        Subject s2 = new Subject("Espanol2", "Liguia");
-        Subject s3 = new Subject("Espanol3", "Liguia");
-        Subject s4 = new Subject("Espanol4", "Liguia");
-        Subject s5 = new Subject("Espanol5", "Liguia");
-        Subject s6 = new Subject("Espanol6", "Liguia");
-        Subject s7 = new Subject("Espanol7", "Liguia");
-        Subject s8 = new Subject("Espanol8", "Liguia");
-
-        Log.e("S Count", "S count: " + db.getSubjectsCount());
-
-        db.createSubject(s1,new int[] {});
-        db.createSubject(s2,new int[] {});
-        db.createSubject(s3,new int[] {});
-        db.createSubject(s4,new int[] {});
-        db.createSubject(s5,new int[] {});
-        db.createSubject(s6,new int[] {});
-        db.createSubject(s7,new int[] {});
-        db.createSubject(s8,new int[] {});
-
-        Log.e("S Count", "S count: " + db.getSubjectsCount());
-
         show();
     }
 
@@ -77,12 +55,20 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Intent i;
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.menuSubject:
+                i = new Intent(MainActivity.this, AddSubjectsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.quit:
+                this.finish();
+                break;
+            case R.id.menuShowCalendar:
+                break;
+            default:
         }
-
         return super.onOptionsItemSelected(item);
     }
 

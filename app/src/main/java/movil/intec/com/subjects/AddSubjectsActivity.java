@@ -86,6 +86,10 @@ public class AddSubjectsActivity extends ActionBarActivity {
 
                    Subject sub = new Subject(asigT.getText().toString(), profesorT.getText().toString());
                    db.createSubject(sub,new int[] {});
+                   Toast toast1 =
+                           Toast.makeText(getApplicationContext(),
+                                   "ASIGNATURA AGREGADA", Toast.LENGTH_LONG);
+                   toast1.show();
                }
             }
         });
