@@ -1,19 +1,17 @@
 package movil.intec.com.subjects.model;
 
-import android.text.format.Time;
-
 /**
  * Created by ernest on 04/04/15.
  */
 public class Horario {
 
     int id;
-    Time start;
-    Time end;
-    Time day;
+    String start;
+    String end;
+    String day;
 
 
-    public Horario(Time start, Time end, Time day) {
+    public Horario(String start, String end, String day) {
         this.start = start;
         this.end = end;
         this.day = day;
@@ -23,19 +21,19 @@ public class Horario {
         this.id = id;
     }
 
-    public void setDay(Time day) {
+    public void setDay(String day) {
         this.day = day;
     }
 
-    public void setStart(Time start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public void setEnd(Time end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 
-    public Time getStart() {
+    public String getStart() {
         return start;
     }
 
@@ -43,12 +41,12 @@ public class Horario {
         return id;
     }
 
-    public Time getDay() {
+    public String getDay() {
 
         return day;
     }
 
-    public Time getEnd() {
+    public String getEnd() {
         return end;
     }
 }

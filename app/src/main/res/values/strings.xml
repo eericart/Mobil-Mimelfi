@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">subjects</string>
+    <string name="app_name">My Subjects</string>
     <string name="drawer_open">Menu opened</string>
     <string name="drawer_close">Menu closed</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_add_subjects">Add Subjects</string>
     <string name="hello_world">Hello world!</string>
+    <string name="nuevaAsig">Añadir Asignatura</string>
+    <string name="nomAsig">Asignatura:</string>
+    <string name="nomProf">Profesor:</string>
+    <string name="hintAsig">Asignatura</string>
+    <string name="hintProf">Profesor</string>
+    <string name="txtHorario">Horario</string>
+    <string name="strLun">Lunes</string>
+    <string name="strMar">Martes</string>
+    <string name="strMier">Miercoles</string>
+    <string name="strJue">Jueves</string>
+    <string name="strVie">Viernes</string>
+    <string name="strSab">Sabado</string>
+    <string name="strLimpiar">Limpiar</string>
+    <string name="strAñadir">Añadir</string>
+    <string name="strDias">Small Text</string>
+
 
 </resources>
