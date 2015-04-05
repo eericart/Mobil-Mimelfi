@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,17 +14,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import movil.intec.com.subjects.helper.DatabaseHelper;
+import movil.intec.com.subjects.model.Subject;
+
 
 public class AddSubjectsActivity extends ActionBarActivity {
 
+    private DatabaseHelper db;
     LinearLayout ll;
-    Button btnFecha;
+    Button btnFecha, btnLimpiar, btnAgregar;
+    EditText asigT, profesorT;
     int _intMyLineCount;
     private Toolbar mToolbar;
 
@@ -38,18 +46,47 @@ public class AddSubjectsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_subjects);
 
+        db = DatabaseHelper.getInstance(getApplicationContext());
+
         mToolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
         setSupportActionBar(mToolbar);
 
 
         ll=(LinearLayout) findViewById(R.id.ll);
+
         btnFecha=(Button) findViewById(R.id.btnFecha);
+        btnLimpiar=(Button) findViewById(R.id.btnLimpiar);
+        btnAgregar = (Button) findViewById(R.id.btnAñadir);
+
+        asigT = (EditText) findViewById(R.id.asigText);
+        profesorT = (EditText) findViewById(R.id.profText);
+
 
         btnFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ll.addView(linearlayout(_intMyLineCount));
                 _intMyLineCount++;
+            }
+        });
+
+        btnLimpiar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View w){
+                asigT.setText("");
+                profesorT.setText("");
+            }
+        });
+
+        btnAgregar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View e){
+               if(nameValidate(asigT.getText().toString(),profesorT.getText().toString())){
+
+                   Subject sub = new Subject(asigT.getText().toString(), profesorT.getText().toString());
+                   db.createSubject(sub,new int[] {});
+               }
             }
         });
     }
@@ -158,5 +195,63 @@ public class AddSubjectsActivity extends ActionBarActivity {
         linearlayoutList.add(LLMain);
         return LLMain;
     }
+
+
+    public boolean nameValidate(String asig, String prof) {
+        String error1 = "-El nombre de la asignatura (" + asig + ") no es valido.\n\t";
+        String error2 = "-El nombre del profesor (" + prof + ") no es valido.\n";
+        String error = "";
+        int con = 0;
+
+        if (asig.length() == 0) {
+            error += error1;
+        } else {
+            while (con < asig.length()) {
+
+                int code = Character.valueOf(asig.charAt(con));
+                con++;
+
+                if ((code < 65 || code > 90) && (code < 97 || code > 122) && (code != 32)) {
+
+                    error += error1;
+                    con = asig.length();
+
+                }
+            }
+        }
+
+        con=0;
+
+        if (prof.length() == 0) {
+            error += error2;
+        } else {
+            while (con < prof.length()) {
+
+                int code = Character.valueOf(prof.charAt(con));
+                con++;
+
+                if ((code < 65 || code > 90) && (code < 97 || code > 122) && (code != 32)) {
+
+                    error += error2;
+                    con = prof.length();
+
+                }
+            }
+        }
+
+        if (error.length() == 0) {
+            return true;
+        } else {
+            String out = "Error al procesar los nombres. \n\nDetalles:\n\t" + error;
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            out, Toast.LENGTH_LONG);
+            toast1.show();
+
+            return false;
+        }
+
+    }
+
 
 }
