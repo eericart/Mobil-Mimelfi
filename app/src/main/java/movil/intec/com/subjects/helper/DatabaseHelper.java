@@ -128,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Adding new
-    public long createSubject(Subject s, int[] h_ids) {
+    public int createSubject(Subject s, int[] h_ids) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -136,23 +136,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_PROFESOR, s.getProfesor());
 
         // insert row
-        long s_id = db.insert(TABLE_SUBJECTS, null, values);
+        int s_id = (int) db.insert(TABLE_SUBJECTS, null, values);
 
        addSubToHorario((int) s_id, h_ids);
+
 
         return s_id;
     }
 
-    public long createHorario(Horario h) {
+    public int createHorario(Horario h) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COL_START, h.getStart().toString());
+        values.put(COL_DAY, h.getStart().toString());
         values.put(COL_END, h.getEnd().toString());
         values.put(COL_START, h.getDay().toString());
 
         // insert row
-        long h_id = db.insert(TABLE_HORARIO, null, values);
+        int h_id =(int) db.insert(TABLE_HORARIO, null, values);
 
         return h_id;
     }
@@ -288,6 +289,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (db != null && db.isOpen())
             db.close();
     }
+
 
 
 }

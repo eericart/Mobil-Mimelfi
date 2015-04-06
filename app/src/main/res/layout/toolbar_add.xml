@@ -1,0 +1,71 @@
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/new_monitor_toolbar"
+    android:minHeight="?android:attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="10dp"
+    android:background="?attr/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:orientation="vertical">
+
+        <!-- Toolbar space -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="56dp"/>
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:textColor="#fff"
+                android:inputType="textPersonName"
+                android:id="@+id/asigText"
+                android:hint="@string/hintAsig" />
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <!-- First divider space -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="8dp"/>
+
+
+        <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            float:fletTextAppearance="@style/floatlabelededittext">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:textColor="#fff"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:id="@+id/profText"
+                android:hint="@string/hintProf"/>
+
+
+        </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+        <!-- Second divider space -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="56dp"/>
+
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="?android:windowContentOverlay"
+        />
+ </android.support.v7.widget.Toolbar>

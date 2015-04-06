@@ -38,64 +38,8 @@ public class MainActivity extends ActionBarActivity {
 
         db = DatabaseHelper.getInstance(getApplicationContext());
 
-        ArrayList<Subject> array = db.getAllSubjects();
-
-        if (array.isEmpty()){
-            Subject sub = new Subject("Introduccion a la vida", "Marcos Gimian");
-            db.createSubject(sub,new int[] {});
-        }
-        show();
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Intent i;
-
-        switch (id){
-            case R.id.menuSubject:
-                i = new Intent(MainActivity.this, AddSubjectsActivity.class);
-                startActivity(i);
-                break;
-            case R.id.quit:
-                this.finish();
-                break;
-            case R.id.menuShowCalendar:
-                break;
-            default:
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    private void show(){
-        ArrayList<Subject> s=db.getAllSubjects();
-
         ListView list = (ListView) findViewById(R.id.listView);
-        CustomAdapter cursorAdapter = new CustomAdapter(getApplicationContext(),s);
-
         final ActionButton fab = (ActionButton) findViewById(R.id.action_button);
-
-        if (s.isEmpty()){
-            showMessage("Error", "No records found");
-            return;
-        }
-        else{
-            list.setAdapter(cursorAdapter);
-            Log.e("info", "records found");
-        }
 
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             private int mLastFirstVisibleItem;
@@ -136,6 +80,55 @@ public class MainActivity extends ActionBarActivity {
                 overridePendingTransition(R.anim.abc_grow_fade_in_from_bottom, R.anim.abc_fade_in);
             }
         });
+        show(list);
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Intent i;
+
+        switch (id){
+            case R.id.menuSubject:
+                i = new Intent(MainActivity.this, AddSubjectsActivity.class);
+                startActivity(i);
+                break;
+            case R.id.quit:
+                this.finish();
+                break;
+            case R.id.menuShowCalendar:
+                break;
+            default:
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void show(ListView l){
+        ArrayList<Subject> s=db.getAllSubjects();
+
+        CustomAdapter cursorAdapter = new CustomAdapter(getApplicationContext(),s);
+        if (s.isEmpty()){
+            showMessage("Error", "No records found");
+            return;
+        }
+        else{
+            l.setAdapter(cursorAdapter);
+            Log.e("info", "records found");
+        }
+
     }
 
     public void showMessage(String title,String message)

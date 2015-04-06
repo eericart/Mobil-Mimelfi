@@ -10,19 +10,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.gc.materialdesign.views.ButtonRectangle;
+import com.software.shell.fab.ActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import movil.intec.com.subjects.helper.DatabaseHelper;
+import movil.intec.com.subjects.model.Horario;
 import movil.intec.com.subjects.model.Subject;
 
 
@@ -30,7 +32,8 @@ public class AddSubjectsActivity extends ActionBarActivity {
 
     private DatabaseHelper db;
     LinearLayout ll;
-    Button btnFecha, btnLimpiar, btnAgregar;
+    ActionButton btnFecha;
+    ButtonRectangle btnLimpiar, btnAgregar;
     EditText asigT, profesorT;
     int _intMyLineCount;
     private Toolbar mToolbar;
@@ -48,15 +51,27 @@ public class AddSubjectsActivity extends ActionBarActivity {
 
         db = DatabaseHelper.getInstance(getApplicationContext());
 
-        mToolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
+        mToolbar = (Toolbar) findViewById(R.id.tb_add); // Attaching the layout to the toolbar object
+        mToolbar.setTitle("New Subject");
         setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         ll=(LinearLayout) findViewById(R.id.ll);
 
-        btnFecha=(Button) findViewById(R.id.btnFecha);
-        btnLimpiar=(Button) findViewById(R.id.btnLimpiar);
-        btnAgregar = (Button) findViewById(R.id.btnAñadir);
+        btnFecha=(ActionButton) findViewById(R.id.btnFecha);
+        btnLimpiar=(ButtonRectangle) findViewById(R.id.btnLimpiar);
+        btnAgregar = (ButtonRectangle) findViewById(R.id.btnAñadir);
 
         asigT = (EditText) findViewById(R.id.asigText);
         profesorT = (EditText) findViewById(R.id.profText);
@@ -70,12 +85,20 @@ public class AddSubjectsActivity extends ActionBarActivity {
             }
         });
 
-        btnLimpiar.setOnClickListener(new View.OnClickListener(){
+        btnLimpiar.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View w){
+            public void onClick(View w) {
                 asigT.setText("");
                 profesorT.setText("");
+                ll.removeAllViewsInLayout();
+                Log.e("Count", "1) " + etStart.size() + " 2) " + etEnd.size() + " 3) " + linearlayoutList.size());
+                //Clean ListArray
+                spinnerList = new ArrayList<Spinner>();
+                etStart.clear();
+                etEnd.clear();
+                linearlayoutList.clear();
+                Log.e("Count", "1) " + etStart.size() + " 2) " + etEnd.size() + " 3) " + linearlayoutList.size());
             }
         });
 
@@ -83,9 +106,14 @@ public class AddSubjectsActivity extends ActionBarActivity {
             @Override
             public void onClick(View e){
                if(nameValidate(asigT.getText().toString(),profesorT.getText().toString())){
-
+                   int[] h_ids = new int[linearlayoutList.size()];
+                   for (int j=0; j<linearlayoutList.size();j++){
+                       Log.e("Spiner:", spinnerList.get(j).getSelectedItem().toString());
+                       Horario h = new Horario(etStart.get(j).getText().toString(),etEnd.get(j).getText().toString(),spinnerList.get(j).getSelectedItem().toString());
+                       h_ids[j]=(int) db.createHorario(h);
+                   }
                    Subject sub = new Subject(asigT.getText().toString(), profesorT.getText().toString());
-                   db.createSubject(sub,new int[] {});
+                   db.createSubject(sub,h_ids);
                    Toast toast1 =
                            Toast.makeText(getApplicationContext(),
                                    "ASIGNATURA AGREGADA", Toast.LENGTH_LONG);
@@ -168,7 +196,6 @@ public class AddSubjectsActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);

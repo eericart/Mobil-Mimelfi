@@ -26,4 +26,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:+'
     compile 'com.pnikosis:materialish-progress:1.5'
     compile 'com.github.shell-software:fab:1.0.5'
+    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.wrapp.floatlabelededittext:library:0.0.6'
 }

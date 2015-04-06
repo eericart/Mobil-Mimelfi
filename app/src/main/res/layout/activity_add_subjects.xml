@@ -4,121 +4,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
-        android:id="@+id/tool_bar"
-        layout="@layout/toolbar_default"
+        android:id="@+id/tb_add"
+        layout="@layout/toolbar_add"
         ></include>
+
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:id="@+id/relativeLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tool_bar">
+        android:layout_below="@+id/tb_add">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nomAsig"
-            android:id="@+id/textView2"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/myTextPrimaryColor" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/strAñadir"
-            android:id="@+id/btnAñadir"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/profText"
-            android:layout_alignEnd="@+id/profText"
-            android:layout_gravity="bottom" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/strLimpiar"
-            android:id="@+id/btnLimpiar"
-            android:layout_alignTop="@+id/btnAñadir"
-            android:layout_gravity="bottom" />
-
-        <LinearLayout
-            android:orientation="vertical"
+        <View
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/ll"
-            android:layout_below="@+id/btnFecha"
-            android:layout_alignRight="@+id/btnFecha"
-            android:layout_alignEnd="@+id/btnFecha">
-
-        </LinearLayout>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/asigText"
-            android:layout_alignParentTop="true"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@+id/textView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="100dp"
-            android:layout_marginStart="100dp"
-            android:hint="@string/hintAsig" />
+            android:id="@+id/view" />
+
+        <com.software.shell.fab.ActionButton
+            android:id="@+id/btnFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:type="DEFAULT"
+            fab:button_color="@color/fab_material_orange_500"
+            fab:button_colorPressed="@color/fab_material_orange_900"
+            fab:image="@drawable/fab_plus_icon"
+            fab:image_size="24dp"
+            fab:shadow_color="#757575"
+            fab:shadow_radius="2.0dp"
+            fab:shadow_xOffset="0.6dp"
+            fab:shadow_yOffset="1.0dp"
+            fab:stroke_color="@color/fab_material_lime_500"
+            fab:stroke_width="0.0dp"
+            fab:show_animation="@anim/fab_roll_from_down"
+            fab:hide_animation="@anim/fab_roll_to_down"
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="0.04" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nomProf"
-            android:id="@+id/textView3"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="60dp"
-            android:textSize="18sp"
-            android:textColor="@color/myTextPrimaryColor" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/profText"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="100dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="50dp"
-            android:hint="@string/hintProf" />
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="136dp"
             android:layout_height="wrap_content"
             android:text="@string/txtHorario"
             android:id="@+id/textView"
-            android:layout_marginTop="31dp"
             android:textColor="@color/myTextPrimaryColor"
-            android:textSize="18sp"
-            android:layout_below="@+id/profText"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal" />
+            android:textSize="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/btnLimpiar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/myPrimaryDarkColor"
+            android:text="@string/strLimpiar"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/textView"
+            android:layout_toStartOf="@+id/textView">
+
+        </com.gc.materialdesign.views.ButtonRectangle>
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
             android:text="@string/strAñadir"
-            android:id="@+id/btnFecha"
+            android:id="@+id/btnAñadir"
             android:layout_gravity="right"
-            android:layout_alignTop="@+id/textView"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textView" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/view"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/btnLimpiar"
+            android:orientation="vertical"/>
     </RelativeLayout>
 
 </RelativeLayout>

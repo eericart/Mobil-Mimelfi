@@ -26,5 +26,8 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
+    <style name="floatlabelededittext">
+        <item name="android:textColor">#FF0000</item>
+    </style>
 
 </resources>
