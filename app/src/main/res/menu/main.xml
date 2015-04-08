@@ -4,6 +4,8 @@
     tools:context="movil.intec.com.subjects.MainActivity">
     <item android:id="@+id/menuShowCalendar"
         android:title="@string/showCalendar" />
+    <item android:id="@+id/menuListSubject"
+        android:title="@string/menuListSubject" />
     <item android:id="@+id/menuSubject"
         android:title="@string/addSubject" />
     <item android:id="@+id/quit"

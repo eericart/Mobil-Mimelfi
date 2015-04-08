@@ -109,6 +109,8 @@ public class MainActivity extends ActionBarActivity {
                 this.finish();
                 break;
             case R.id.menuShowCalendar:
+                i = new Intent(MainActivity.this, ShowCalendar.class);
+                startActivity(i);
                 break;
             default:
         }

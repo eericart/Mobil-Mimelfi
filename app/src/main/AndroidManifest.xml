@@ -26,6 +26,10 @@
             android:name=".MainActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".ShowCalendar"
+            android:label="@string/title_activity_calendar" >
+        </activity>
     </application>
 
 </manifest>
